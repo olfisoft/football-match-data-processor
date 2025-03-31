@@ -180,7 +180,11 @@ However, the following Batch processing parameters can be updated here [TypeScri
 :exclamation: **Important:**
 The following steps have been tested on MacOS only.
 
-Prerequisites: installed npm, configured AWS CLI.
+Prerequisites:
+
+- installed Node.js, AWS CLI 2
+- AWS account, authorized AWS user to deploy CloudFormation stacks
+- configured AWS CLI (Access key, Secret Key, Region, etc.)
 
 1. Clone the repository:
    ```bash
@@ -199,14 +203,14 @@ Prerequisites: installed npm, configured AWS CLI.
 
 :information_source: **Note:** environment variables are used to deploy the infrastructure here: [TypeScript code](bin/football-match-data-processor.ts)
 
-3. Deploy the application stacks, confirm their deployment:
+4. Deploy the application Stacks, confirm their deployment:
    ```bash
-   cdk deploy --all
+   npx cdk deploy --all
    ```
 
 :warning: **Note:** deployment of MSK stack can take about 30 min of time.
 
-3. Save API URL from the console output, e.g. it can look like:
+5. Save API URL from the console output, e.g. it can look like:
    ```bash
    Outputs:
    FootballMatchDataProcessorGatewayStack = https://te3pbpumd7.execute-api.us-east-1.amazonaws.com/prod/
@@ -214,7 +218,13 @@ Prerequisites: installed npm, configured AWS CLI.
 
 Where 'API URL' = https://te3pbpumd7.execute-api.us-east-1.amazonaws.com/prod
 
-4. Use API URL to run [End-to-end testing](#end-to-end-testing).
+6. Use API URL to run [End-to-end testing](#end-to-end-testing).
+
+:exclamation: **Important:**
+Destroy the stacks after testing to avoid costs such as those caused by running MSK etc.
+   ```bash
+   npx cdk destroy --all
+   ```
 
 ---
 
@@ -222,7 +232,7 @@ Where 'API URL' = https://te3pbpumd7.execute-api.us-east-1.amazonaws.com/prod
 
 ### Stacks
 
-Prerequisites: installed npm, jest
+Prerequisites: installed Node.js, Jest
 
 - Infrastructure unit test: [TypeScript code](test)
 - Run the unit test:
@@ -231,11 +241,11 @@ Prerequisites: installed npm, jest
    npx jest test/football-match-data-processor.test.ts
    ```
 
-:warning: **Note:** AWS CDK tests are still under development.  
+:warning: **Note:** AWS CDK Stack tests are still under development.  
 
 ### Lambdas
 
-Prerequisites: installed python, pytest
+Prerequisites: installed Python, Pytest
 
 1. **Ingest Lambda**
 - Tests that Ingest lambda validates Match events
