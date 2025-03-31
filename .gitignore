@@ -1,0 +1,17 @@
+*.js
+!jest.config.js
+*.d.ts
+node_modules
+.DS_Store
+
+# Ignore Python bytecode files
+*.pyc
+__pycache__/
+
+# CDK asset staging directory
+.cdk.staging
+cdk.out
+
+# Exclude Topic Lambda node modules
+!lambda/topic/dist/node_modules/
+!lambda/topic/dist/index.js

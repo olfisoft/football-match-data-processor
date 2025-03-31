@@ -1,0 +1,98 @@
+{
+	"info": {
+		"_postman_id": "d5634fbd-d0f5-4cce-ad6c-7f8d671455ea",
+		"name": "FootballMatchDataProcessor",
+		"description": "Football Match Data Processor endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43596243",
+		"_collection_link": "https://olfisoft-9131124.postman.co/workspace/Olfisoft's-Workspace~ad94b9a7-eeae-4190-8032-e44d52e1678a/collection/43596243-d5634fbd-d0f5-4cce-ad6c-7f8d671455ea?action=share&source=collection_link&creator=43596243"
+	},
+	"item": [
+		{
+			"name": "matches/event",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"match_id\": \"000001\",\n    \"event_type\": \"goal\",\n    \"team\": \"Team A\",\n    \"player\": \"Player 1\",\n    \"timestamp\": \"2023-10-15T14:30:00Z\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "/matches/event",
+					"path": [
+						"matches",
+						"event"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "matches/<match_id>/passes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/matches/000001/passes",
+					"path": [
+						"matches",
+						"000001",
+						"passes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "matches/<match_id>/goals",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/matches/000001/goals",
+					"path": [
+						"matches",
+						"000001",
+						"goals"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.request.url.protocol = \"https\";",
+					"pm.request.url.host = \"te3pbpumd7.execute-api.us-east-1.amazonaws.com/prod\";",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
