@@ -15,7 +15,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"match_id\": \"000001\",\n    \"event_type\": \"goal\",\n    \"team\": \"Team A\",\n    \"player\": \"Player 1\",\n    \"timestamp\": \"2023-10-15T14:30:00Z\"\n}",
+					"raw": "{\n    \"match_id\": \"000001\",\n    \"event_type\": \"goal\",\n    \"team\": \"Team A\",\n    \"player\": \"Player 1\",\n    \"timestamp\": \"2024-10-15T14:30:00Z\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -27,25 +27,6 @@
 					"path": [
 						"matches",
 						"event"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "matches/<match_id>/passes",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "/matches/000001/passes",
-					"path": [
-						"matches",
-						"000001",
-						"passes"
 					]
 				}
 			},
@@ -69,6 +50,25 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "matches/<match_id>/passes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/matches/000001/passes",
+					"path": [
+						"matches",
+						"000001",
+						"passes"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -79,7 +79,7 @@
 				"packages": {},
 				"exec": [
 					"pm.request.url.protocol = \"https\";",
-					"pm.request.url.host = \"te3pbpumd7.execute-api.us-east-1.amazonaws.com/prod\";",
+					"pm.request.url.host = \"8rrj1788pf.execute-api.us-east-1.amazonaws.com/prod/\";",
 					""
 				]
 			}

@@ -98,6 +98,15 @@ export class MskStack extends cdk.Stack {
         },
         physicalResourceId: cr.PhysicalResourceId.of('CreateKafkaTopic'),
       },
+      onDelete: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: topicLambda.functionName,
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify({ action: 'delete' }),
+        },
+      },
       policy: cr.AwsCustomResourcePolicy.fromStatements([
         new iam.PolicyStatement({
           actions: ['lambda:InvokeFunction'], // Allow invoking the Lambda function

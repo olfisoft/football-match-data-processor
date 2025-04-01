@@ -49,29 +49,29 @@ The purpose of this project is to demonstrate Amazon Web Services (AWS) capabili
 - Triggers Query Lambda to fetch Match statistics
 2. **Topic Lambda**
 - Prepares MSK topic before MSK trigger is configured
-- [TypeScript code](lambda/topic)
+- [TypeScript code](lambda/topic/index.ts)
 3. **Ingest Lambda**
 - Processes API requests:
   - POST matches/event
 - Validates incoming Match events
 - Submits Match events to MSK Kafka queue
-- [Python code](lambda/ingest)
+- [Python code](lambda/ingest/app.py)
 4. **Query Lambda**
 - Processes API requests:
   - GET matches/{match_id}/goals
   - GET matches/{match_id}/passes
 - Fetches Match statistics from Dynamo DB
-- [Python code](lambda/query)
+- [Python code](lambda/query/app.py)
 5. **Consume Lambda**
 - Prepares Match events for Batch processing
 - Initiates Step Function workflow to trigger enrichment and storing of Match data
-- [Python code](lambda/process/consume)
+- [Python code](lambda/process/consume/app.py)
 6. **Enrich Lambda**
 - Enriches a batch of Match events
-- [Python code](lambda/process/enrich)
+- [Python code](lambda/process/enrich/app.py)
 7. **Store Lambda**
 - Stores batches of raw and enriched Match data in S3 and DynamoDB
-- [Python code](lambda/process/store)
+- [Python code](lambda/process/store/app.py)
 8. **MSK Kafka**
 - Accepts Match events for processing
 - Triggers Consume Lambda to prepare Match events for Batch processing
@@ -141,7 +141,22 @@ However, the following Batch processing parameters can be updated here [TypeScri
    - Error (400)
       ```json
       {
-         "message": "Invalid input data"
+         "message": "Invalid input data",
+         "description": "Value error, All characters in the Match id must be integers"
+      }
+      ```
+   - Error (400)
+      ```json
+      {
+         "message": "Invalid input data",
+         "description": "Input should be 'goal', 'pass' or 'foul'"
+      }
+      ```
+   - Error (400)
+      ```json
+      {
+         "message": "Invalid input data",
+         "description": "Value error, Timestamp must be in format '%Y-%m-%dT%H:%M:%S%z'"
       }
       ```
 2. **Get Match goals**
@@ -203,14 +218,19 @@ Prerequisites:
 
 :information_source: **Note:** environment variables are used to deploy the infrastructure here: [TypeScript code](bin/football-match-data-processor.ts)
 
-4. Deploy the application Stacks, confirm their deployment:
+4. Run CDK bootstrap if this is the first time deploying CDK stacks in the AWS account / region:
+   ```bash
+   npx cdk bootstrap
+   ```
+
+5. Deploy the application Stacks, confirm their deployment:
    ```bash
    npx cdk deploy --all
    ```
 
 :warning: **Note:** deployment of MSK stack can take about 30 min of time.
 
-5. Save API URL from the console output, e.g. it can look like:
+6. Save API URL from the console output, e.g. it can look like:
    ```bash
    Outputs:
    FootballMatchDataProcessorGatewayStack = https://te3pbpumd7.execute-api.us-east-1.amazonaws.com/prod/
@@ -218,7 +238,7 @@ Prerequisites:
 
 Where 'API URL' = https://te3pbpumd7.execute-api.us-east-1.amazonaws.com/prod
 
-6. Use API URL to run [End-to-end testing](#end-to-end-testing).
+7. Use API URL to run [End-to-end testing](#end-to-end-testing).
 
 :exclamation: **Important:**
 Destroy the stacks after testing to avoid costs such as those caused by running MSK etc.
@@ -290,7 +310,7 @@ Prerequisites: installed Python, Pytest
    ```bash
    curl --location '<API URL>/matches/00000001/passes'
    ```
-6. Use the Postman collection to get more information about [REST API](#rest-api).
+6. Check that S3 files are available in the bucket: 'football-match-raw-data-bucket', e.g. [S3 file](s3)
 
 ---
 

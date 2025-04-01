@@ -1,6 +1,12 @@
 import uuid
 from datetime import datetime
+from enum import Enum
 from pydantic import BaseModel, Field, field_validator
+
+class EventType(str, Enum):
+    GOAL = "goal"
+    PASS = "pass"
+    FOUL = "foul"
 
 class MatchEvent(BaseModel):
     """
@@ -9,7 +15,7 @@ class MatchEvent(BaseModel):
     """
     event_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     match_id: str
-    event_type: str
+    event_type: EventType
     team: str
     player: str
     timestamp: str
@@ -28,3 +34,11 @@ class MatchEvent(BaseModel):
         except ValueError:
             raise ValueError("Timestamp must be in format '%Y-%m-%dT%H:%M:%S%z'")
         return v
+
+    @field_validator("event_type")
+    def validate_event_type(cls, value):
+        # Event type should be supported
+        if value not in EventType:
+            raise ValueError(f"Invalid event_type: {value}. Must be one of {list(EventType)}")
+        return value
+    

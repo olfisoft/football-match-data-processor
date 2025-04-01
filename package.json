@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-kafka": "^3.777.0",
-    "aws-cdk-lib": "^2.185.0",
+    "aws-cdk-lib": "^2.187.0",
     "constructs": "^10.0.0",
     "kafkajs": "^2.2.4"
   }
