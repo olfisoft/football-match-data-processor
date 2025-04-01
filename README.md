@@ -142,21 +142,21 @@ However, the following Batch processing parameters can be updated here [TypeScri
       ```json
       {
          "message": "Invalid input data",
-         "description": "Value error, All characters in the Match id must be integers"
+         "description": "Value error, Match id must be integer"
       }
       ```
    - Error (400)
       ```json
       {
          "message": "Invalid input data",
-         "description": "Input should be 'goal', 'pass' or 'foul'"
+         "description": "Value error, Event type must be one of [<EventType.GOAL: 'goal'>, <EventType.PASS: 'pass'>, <EventType.FOUL: 'foul'>]"
       }
       ```
    - Error (400)
       ```json
       {
          "message": "Invalid input data",
-         "description": "Value error, Timestamp must be in format '%Y-%m-%dT%H:%M:%S%z'"
+         "description": "Value error, Timestamp must be in format '%Y-%m-%dT%H:%M:%S%Z'"
       }
       ```
 2. **Get Match goals**

@@ -15,7 +15,7 @@ class MatchEvent(BaseModel):
     """
     event_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
     match_id: str
-    event_type: EventType
+    event_type: str
     team: str
     player: str
     timestamp: str
@@ -23,7 +23,7 @@ class MatchEvent(BaseModel):
     @field_validator("match_id")
     def all_chars_must_be_integers(cls, value):
         if not value.isdigit():
-            raise ValueError("All characters in the Match id must be integers")
+            raise ValueError("Match id must be integer")
         return value
 
     @field_validator("timestamp")
@@ -32,13 +32,13 @@ class MatchEvent(BaseModel):
             # Timestamp should have the required format
             datetime.strptime(v, "%Y-%m-%dT%H:%M:%S%z")
         except ValueError:
-            raise ValueError("Timestamp must be in format '%Y-%m-%dT%H:%M:%S%z'")
+            raise ValueError("Timestamp must be in format '%Y-%m-%dT%H:%M:%S%Z'")
         return v
 
     @field_validator("event_type")
     def validate_event_type(cls, value):
         # Event type should be supported
         if value not in EventType:
-            raise ValueError(f"Invalid event_type: {value}. Must be one of {list(EventType)}")
+            raise ValueError(f"Event type must be one of {list(EventType)}")
         return value
     
