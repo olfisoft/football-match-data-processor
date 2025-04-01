@@ -9,7 +9,7 @@ class KafkaProducerContext:
     Kafka producer context manager
     Frees resources automatically
     """
-    def __init__(self, msk_cluster_arn: Any,) -> None:
+    def __init__(self, msk_cluster_arn: str) -> None:
         self.msk_cluster_arn = msk_cluster_arn
         
         self._get_bootstrap_servers()
@@ -26,9 +26,8 @@ class KafkaProducerContext:
         response = client.get_bootstrap_brokers(
             ClusterArn=self.msk_cluster_arn
         )
-        self.bootstrap_servers = response['BootstrapBrokerString'].split(', ')
+        self.bootstrap_servers = response['BootstrapBrokerString'].split(',')
         extra = {
-            "topic": self.msk_topic,
             "brokers": self.bootstrap_servers
         }
         print(f"Received Kafka config: {extra}")

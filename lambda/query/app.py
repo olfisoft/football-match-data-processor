@@ -19,7 +19,6 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     match_id = path_items[2]
     event_type = path_items[3]
 
-    event_type = None
     if event_type == 'goals':
         event_type = 'goal'
     elif event_type == 'passes':

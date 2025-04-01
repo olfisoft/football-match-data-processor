@@ -26,8 +26,9 @@ export class GatewayStack extends cdk.Stack {
 
     // Ingest Lambda function to ingest Match events
     const ingestLambda = new lambda.Function(this, "IngestLambda", {
-      runtime: lambda.Runtime.PYTHON_3_12,
+      runtime: lambda.Runtime.PYTHON_3_13,
       handler: "app.handler",
+      architecture: lambda.Architecture.ARM_64,
       code: lambda.Code.fromAsset(
         "./lambda/ingest"
       ),
