@@ -100,7 +100,7 @@ export class FootballMatchDataProcessorStack extends cdk.Stack {
       },
       vpc: vpc, // Deploy the Lambda function in the same VPC as the MSK cluster
       vpcSubnets: {
-        subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS, // Use private subnets
+        subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
       },
       securityGroups: [securityGroup], // Use the same security group as the MSK cluster
       memorySize: 512,

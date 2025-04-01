@@ -34,6 +34,9 @@ export class GatewayStack extends cdk.Stack {
       ),
       // Deploy the function in the same VPC of MSK cluster
       vpc: vpc,
+      vpcSubnets: vpc.selectSubnets({
+        subnetType: cdk.aws_ec2.SubnetType.PRIVATE_WITH_EGRESS,
+      }),
       // Use the same security group as the MSK cluster
       securityGroups: [securityGroup],
       environment: {

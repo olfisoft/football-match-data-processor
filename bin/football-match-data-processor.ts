@@ -21,12 +21,6 @@ const networkStack = new NetworkStack(app, 'FootballMatchDataProcessorNetworkSta
   env: env,
 });
 
-// Create Storage Stack, configure Dynamo DB
-const storageStack = new StorageStack(app, 'FootballMatchDataProcessorStorageStack', {
-  env: env,
-  eventBucketName: 'football-match-raw-data-bucket'
-});
-
 // Create MSK Stack and MSK topic
 const mskStack = new MskStack(app, 'FootballMatchDataProcessorMskStack', {
   env: env,
@@ -40,6 +34,12 @@ const mskStack = new MskStack(app, 'FootballMatchDataProcessorMskStack', {
     partitions: 2, // Number of consumers to process in parallel
     replicationFactor: 1 // No replication for demonstration purposes
   }
+});
+
+// Create Storage Stack, configure Dynamo DB
+const storageStack = new StorageStack(app, 'FootballMatchDataProcessorStorageStack', {
+  env: env,
+  eventBucketName: 'football-match-raw-data-bucket'
 });
 
 // Create Gateway Stack with relevant Lambda functions

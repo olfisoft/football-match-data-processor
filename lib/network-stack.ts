@@ -17,31 +17,42 @@ export class NetworkStack extends cdk.Stack {
     // VPC for the MSK cluster 
     const vpc = new ec2.Vpc(this, "Vpc", {
       vpcName: "FootballMatchDataProcessorVpc",
-      maxAzs: 2
+      maxAzs: 2,
+      subnetConfiguration: [
+        {
+          subnetType: ec2.SubnetType.PUBLIC,
+          name: 'PublicSubnet',
+          cidrMask: 24
+        },
+        {
+          subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS,
+          name: 'PrivateSubnet',
+          cidrMask: 24
+        }
+      ]
     });
 
     // Create AWS service endpoints for deployed Lambda functions
-    vpc.addInterfaceEndpoint('LambdaEndpoint', {
-      service: ec2.InterfaceVpcEndpointAwsService.LAMBDA,
-    });
+    //vpc.addInterfaceEndpoint('LambdaEndpoint', {
+    //  service: ec2.InterfaceVpcEndpointAwsService.LAMBDA,
+    //});
 
-    vpc.addInterfaceEndpoint('StsEndpoint', {
-      service: ec2.InterfaceVpcEndpointAwsService.STS,
-    });
+    //vpc.addInterfaceEndpoint('StsEndpoint', {
+    //  service: ec2.InterfaceVpcEndpointAwsService.STS,
+    //});
 
     // Security group for the MSK cluster
     const securityGroup = new ec2.SecurityGroup(this, "SecurityGroup", {
       vpc: vpc,
-      securityGroupName: "FootballMatchDataProcessorSecurityGroup",
-      description: "Security group for Football Match Data Processor",
+      description: "Security group for MSK cluster",
       allowAllOutbound: true
     });
 
     // Allow inbound traffic on the specified port
     securityGroup.addIngressRule(
-      ec2.Peer.anyIpv4(),
+      ec2.Peer.ipv4(vpc.vpcCidrBlock),
       ec2.Port.tcp(9092),
-      "Allow inbound traffic on port 9092"
+      "Allow Kafka traffic within VPC on port 9092"
     );
 
     this.config = {

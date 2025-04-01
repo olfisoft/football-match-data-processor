@@ -5,7 +5,7 @@
 
 Football Match Data Processor is a serverless application that processes and analyzes football match data in real-time.
 
-The purpose of this project is to demonstrate Amazon Web Services (AWS) capabilities of batch data processing by means of the following technology stack:
+The goal of this project is to demonstrate the data processing capabilities of Amazon Web Services (AWS) by means the following technology stack:
 - AWS CDK
 - AWS API Gateway
 - AWS MSK Kafka
@@ -14,6 +14,8 @@ The purpose of this project is to demonstrate Amazon Web Services (AWS) capabili
 - AWS Dynamo DB
 - AWS S3
 - TypeScript and Python
+
+The implementation also takes advantage of batch processing, where incoming events are aggregated, enriched and sent as batches to the database and S3 storage.
 
 ---
 
@@ -181,6 +183,12 @@ However, the following Batch processing parameters can be updated here [TypeScri
          "match_id": "000001",
          "event_type": "pass",
          "count": 3
+      }
+      ```
+   - Success (400)
+      ```json
+      {
+         "message": "Invalid Input parameters"
       }
       ```
 

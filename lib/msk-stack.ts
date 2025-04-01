@@ -44,7 +44,7 @@ export class MskStack extends cdk.Stack {
       kafkaVersion: props.kafkaVersion,
       numberOfBrokerNodes: props.numberOfBrokerNodes,
       brokerNodeGroupInfo: {
-        clientSubnets: vpc.publicSubnets.map(subnet => subnet.subnetId),
+        clientSubnets: vpc.privateSubnets.map(subnet => subnet.subnetId),
         instanceType: props.instanceType,
         securityGroups: [securityGroup.securityGroupId]
       },
