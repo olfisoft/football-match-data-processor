@@ -185,7 +185,7 @@ However, the following Batch processing parameters can be updated here [TypeScri
          "count": 3
       }
       ```
-   - Success (400)
+   - Error (400)
       ```json
       {
          "message": "Invalid Input parameters"
