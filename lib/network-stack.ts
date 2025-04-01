@@ -32,15 +32,6 @@ export class NetworkStack extends cdk.Stack {
       ]
     });
 
-    // Create AWS service endpoints for deployed Lambda functions
-    //vpc.addInterfaceEndpoint('LambdaEndpoint', {
-    //  service: ec2.InterfaceVpcEndpointAwsService.LAMBDA,
-    //});
-
-    //vpc.addInterfaceEndpoint('StsEndpoint', {
-    //  service: ec2.InterfaceVpcEndpointAwsService.STS,
-    //});
-
     // Security group for the MSK cluster
     const securityGroup = new ec2.SecurityGroup(this, "SecurityGroup", {
       vpc: vpc,
