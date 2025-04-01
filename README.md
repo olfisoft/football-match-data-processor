@@ -142,7 +142,7 @@ However, the following Batch processing parameters can be updated here [TypeScri
       ```json
       {
          "message": "Invalid input data",
-         "description": "Value error, Match id must be integer"
+         "description": "Value error, Match id must contain only integers"
       }
       ```
    - Error (400)

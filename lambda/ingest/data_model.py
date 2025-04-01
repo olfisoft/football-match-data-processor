@@ -23,7 +23,7 @@ class MatchEvent(BaseModel):
     @field_validator("match_id")
     def all_chars_must_be_integers(cls, value):
         if not value.isdigit():
-            raise ValueError("Match id must be integer")
+            raise ValueError("Match id must contain only integers")
         return value
 
     @field_validator("timestamp")
