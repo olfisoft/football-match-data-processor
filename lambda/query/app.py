@@ -3,7 +3,7 @@ import json
 import boto3
 from typing import Any, Dict
 
-table_name = os.getenv('DYNAMODB_TABLE_NAME')
+TABLE_NAME = os.getenv('DYNAMODB_TABLE_NAME')
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     """
@@ -39,7 +39,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     count: int = 0
     try:
         dynamodb = boto3.resource('dynamodb')
-        table = dynamodb.Table(table_name)
+        table = dynamodb.Table(TABLE_NAME)
 
         response = table.query(
             IndexName='MatchIdEventTypeIndex',

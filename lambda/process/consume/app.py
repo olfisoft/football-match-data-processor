@@ -4,7 +4,7 @@ import base64
 import boto3
 from typing import Any, Dict
 
-state_machine_arn = os.getenv("STATE_MACHINE_ARN")
+STATE_MACHINE_ARN = os.getenv("STATE_MACHINE_ARN")
 
 def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     """
@@ -36,7 +36,7 @@ def handler(event: Dict[str, Any], context: Any) -> Dict[str, Any]:
     try:
         stepfunctions_client = boto3.client('stepfunctions')
         response = stepfunctions_client.start_execution(
-            stateMachineArn=state_machine_arn,
+            stateMachineArn=STATE_MACHINE_ARN,
             input=json.dumps(lambda_event)
         )
         print(f"Execution started, state machine ARN: {response['executionArn']}")
